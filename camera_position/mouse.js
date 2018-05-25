@@ -8,20 +8,20 @@ function init() {
     const height = 540;
     // 角度指定用変数
     let rot = 0;
+    // マウス座標指定
+    let mouseX = 0;
 
     // WebGLをレンダリングするためのレンダラーを生成
     const renderer = new THREE.WebGLRenderer({
-        canvas: document.querySelector('#myCanvas'),
+        canvas: document.querySelector('#myCanvas')
     });
-    renderer.setPixelRatio(window.devicePixcelRatio);
-    // レンダラーのサイズを変更する
     renderer.setSize(width, height);
 
     // シーンを作成
     const scene = new THREE.Scene();
 
     // カメラを作成
-    const camera = new THREE.PerspectiveCamera(45, width / height);
+    const camera = new THREE.PerspectiveCamera(45, width / height)
 
     // 平行光源
     const directionalLight = new THREE.DirectionalLight(0xFFFFFF);
@@ -43,6 +43,11 @@ function init() {
 
     // カメラの動きがわかりやすいように星屑を作成
     createStarField();
+
+    // マウス座標が動いたときのみ取得
+    document.addEventListener('mousemove', (event) => {
+        mouseX = event.pageX;
+    });
 
     // 初回実行
     tick();
@@ -74,9 +79,14 @@ function init() {
 
     // 毎フレーム毎に実行されるループイベント
     function tick() {
-        // 毎フレーム角度を0.5度ずつ足す
-        rot += 0.5;
-        // ラジアンに変換
+        // マウスの位置に応じて角度を設定
+        // マウスのX座標がステージの幅の何%の位置にあるのか調べてそれを360度で計算する
+        const targetRot = (mouseX / window.innerWidth) * 360;
+        // イージングの公式を用いて滑らかにする
+        // イージング: エフェクトの動きを加速/減速させる、直線的でない滑らかな動きを付与したもの
+        // 値 += (目標値 - 現在の値) * 減速値
+        rot += (targetRot - rot) * 0.02;
+        // ラジアンに変換する
         const radian = rot * Math.PI / 180;
         // 角度に応じてカメラの位置を設定
         camera.position.x = 1000 * Math.sin(radian);
