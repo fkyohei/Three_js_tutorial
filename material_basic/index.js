@@ -73,7 +73,7 @@ function init() {
     });
     // 上をまとめて下記のように書くことも可能
     // const material = new THREE.MeshStandardMaterial({
-    //   map: new THREE.TextureLoader().load('imgs/earthmap1k.jpg')
+    //   map: new THREE.TextureLoader().load('./earthmap1k.jpg')
     // });
     const mesh = new THREE.Mesh(geometry, material);
     // シーンに追加
