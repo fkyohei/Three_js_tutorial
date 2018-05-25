@@ -33,7 +33,9 @@ function init() {
     // 立方体と使うメソッドが違うだけで考え方は同じ
     // ジオメトリとマテリアルからメッシュを作成する
     // 引数は半径, 経度分割数（経線の細さ）, 緯度分割数（緯線の細さ）
-    // ※ 経度分割線と緯度分割線がいまいちわからない・・・
+    // 経度分割線と緯度分割線は滑らかさ
+    // 3Dで表示する場合表示オブジェクトをポリゴン化（多角形）で表示させているため、
+    // 分割数を上げると曲線に近くなるため滑らかに見える様になる
     const geometry = new THREE.SphereGeometry(300, 30, 30);
     const material = new THREE.MeshStandardMaterial({color: 0xFF0000});
     // const material = new THREE.MeshNormalMaterial();

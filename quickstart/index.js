@@ -16,10 +16,12 @@ function init() {
     renderer.setSize(width, height);
 
     //// ********  上記でレンダリングするための空間？（背景？）が生成される  *******
-    
+
     // シーンを作成
     // シーンとは3D空間のこと。この中に3Dオブジェクトや光源などを配置する。
     const scene = new THREE.Scene();
+    // 背景色も変更可能
+    // scene.background = new THREE.Color(0xffffff);
 
     // カメラを作成
     // どの視点からどの空間を撮影するか（表示するか）を指定する。
